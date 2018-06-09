@@ -6,4 +6,5 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>sso</artifactId>
+  <name>单点登录</name>
 </project>

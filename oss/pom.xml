@@ -12,4 +12,5 @@
   	<module>zuul</module>
   	<module>config</module>
   </modules>
+  <name>微服务构件</name>
 </project>

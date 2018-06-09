@@ -11,4 +11,5 @@
   	<module>service-hi</module>
   	<module>client</module>
   </modules>
+  <name>samples</name>
 </project>

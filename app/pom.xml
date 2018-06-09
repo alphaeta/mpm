@@ -7,4 +7,5 @@
   </parent>
   <artifactId>app</artifactId>
   <packaging>pom</packaging>
+  <name>应用</name>
 </project>

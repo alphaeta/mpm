@@ -6,4 +6,5 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>portal</artifactId>
+  <name>门户</name>
 </project>
