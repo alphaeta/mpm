@@ -7,4 +7,7 @@
   </parent>
   <artifactId>samples</artifactId>
   <packaging>pom</packaging>
+  <modules>
+  	<module>service-hi</module>
+  </modules>
 </project>
