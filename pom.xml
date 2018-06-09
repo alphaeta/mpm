@@ -8,6 +8,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>oss</module>
+		<module>samples</module>
+		<module>app</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
