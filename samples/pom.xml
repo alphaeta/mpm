@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>service-hi</module>
+  	<module>client</module>
   </modules>
 </project>

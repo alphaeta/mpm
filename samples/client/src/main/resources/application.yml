@@ -1,9 +1,9 @@
 server:
-  port: 6100
+  port: 6102
   
 spring:
   application:
-    name: service-hi
+    name: client
     
 eureka:
   client:
