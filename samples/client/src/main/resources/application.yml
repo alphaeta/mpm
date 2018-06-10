@@ -1,5 +1,5 @@
 server:
-  port: 6102
+  port: 6200
   
 spring:
   application:
@@ -8,7 +8,6 @@ spring:
 feign:
   hystrix:
     enabled:  true
-
 
     
 eureka:

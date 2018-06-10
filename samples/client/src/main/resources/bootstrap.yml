@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      label: master
+      profile: dev
+      url:  http://localhost:7300/
+
