@@ -25,4 +25,4 @@ public class Application {
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-}
+} 
