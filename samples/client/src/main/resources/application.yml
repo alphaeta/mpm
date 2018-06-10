@@ -1,9 +1,6 @@
 server:
   port: 6200
   
-spring:
-  application:
-    name: client
 
 feign:
   hystrix:

@@ -6,13 +6,13 @@ spring:
     name: config
   cloud:
     config:
+      label:  master
       server:
         git:
-          uri:  https://github.com/alphaeta/configrespo
+          uri:  https://github.com/alphaeta/configrespo/
           searchPaths:  samples
           username: 
           password: 
-      label:  master
           
 eureka:
   client:
