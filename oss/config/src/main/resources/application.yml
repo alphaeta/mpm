@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri:  https://github.com/forezp/SpringcloudConfig/
-          searchPaths:  respo
+          uri:  https://github.com/alphaeta/configrespo
+          searchPaths:  samples
           username: 
           password: 
       label:  master
@@ -21,6 +21,3 @@ eureka:
   instance:
     prefer-ip-address:  true
     instance-id:  ${spring.cloud.client.ipAddress}:${server.port} 
-    
-    
-
