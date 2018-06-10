@@ -2,16 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.mpm</groupId>
-    <artifactId>mpm</artifactId>
+    <artifactId>oss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>oss</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>eureka</module>
-  	<module>zuul</module>
-  	<module>config</module>
-  	<module>sleuth</module>
-  </modules>
-  <name>微服务构件</name>
+  <artifactId>sleuth</artifactId>
 </project>
