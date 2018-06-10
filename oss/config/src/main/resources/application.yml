@@ -1,0 +1,26 @@
+server:
+  port: 7300
+  
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri:  https://github.com/forezp/SpringcloudConfig/
+          searchPaths:  respo
+          username: 
+          password: 
+      label:  master
+          
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7100/eureka/
+  instance:
+    prefer-ip-address:  true
+    instance-id:  ${spring.cloud.client.ipAddress}:${server.port} 
+    
+    
+
