@@ -1,6 +1,6 @@
 spring:
   application:
-    name: client
+    name: service-hi
   cloud:
     config:      
       label: master

@@ -22,5 +22,13 @@ public class Application {
 	@RequestMapping("/hi")
 	public String home(@RequestParam String name) {
 		return "hi " + name + ",i am from port:" + port;
-	}	
+	}
+
+	@Value("${house.address.city}")
+	String city;
+
+	@RequestMapping(value = "/config")
+	public String config() {
+		return city;
+	}
 }
