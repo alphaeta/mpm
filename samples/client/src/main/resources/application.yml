@@ -6,6 +6,9 @@ feign:
   hystrix:
     enabled:  true
 
+spring:
+  zipkin:
+    base-url: http://localhost:7140
     
 eureka:
   client:

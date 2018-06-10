@@ -1,9 +1,10 @@
 server:
   port: 6100
   
+
 spring:
-  application:
-    name: service-hi
+  zipkin:
+    base-url: http://localhost:7140
     
 eureka:
   client:
