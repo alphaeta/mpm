@@ -12,6 +12,7 @@
   	<module>zuul</module>
   	<module>config</module>
   	<module>sleuth</module>
+  	<module>turbine</module>
   </modules>
   <name>微服务构件</name>
 </project>
