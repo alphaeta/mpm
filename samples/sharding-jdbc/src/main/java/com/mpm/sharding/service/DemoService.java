@@ -47,7 +47,7 @@ public class DemoService {
         System.out.println("1.Insert--------------");
         for (int i = 0; i < 10; i++) {
             Order order = new Order();
-            order.setUserId(51);
+            order.setUserId(51+i);
             order.setStatus("INSERT_TEST");
             orderRepository.insert(order);
             long orderId = order.getOrderId();
@@ -55,17 +55,17 @@ public class DemoService {
             
             OrderItem item = new OrderItem();
             item.setOrderId(orderId);
-            item.setUserId(51);
+            item.setUserId(51+i);
             orderItemRepository.insert(item);
         }
-        System.out.println(orderItemRepository.selectAll());
-        System.out.println("2.Delete--------------");
-        for (Long each : orderIds) {
-            orderRepository.delete(each);
-            orderItemRepository.delete(each);
-        }
-        System.out.println(orderItemRepository.selectAll());
-        orderItemRepository.dropTable();
-        orderRepository.dropTable();
+//        System.out.println(orderItemRepository.selectAll());
+//        System.out.println("2.Delete--------------");
+//        for (Long each : orderIds) {
+//            orderRepository.delete(each);
+//            orderItemRepository.delete(each);
+//        }
+//        System.out.println(orderItemRepository.selectAll());
+//        orderItemRepository.dropTable();
+//        orderRepository.dropTable();
     }
 }
