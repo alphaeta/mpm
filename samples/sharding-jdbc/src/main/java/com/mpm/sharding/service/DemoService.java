@@ -41,13 +41,13 @@ public class DemoService {
     public void demo() {
         orderRepository.createIfNotExistsTable();
         orderItemRepository.createIfNotExistsTable();
-        orderRepository.truncateTable();
-        orderItemRepository.truncateTable();
+//        orderRepository.truncateTable();
+//        orderItemRepository.truncateTable();
         List<Long> orderIds = new ArrayList<>(10);
         System.out.println("1.Insert--------------");
         for (int i = 0; i < 10; i++) {
             Order order = new Order();
-            order.setUserId(51+i);
+            order.setUserId(50+i);
             order.setStatus("INSERT_TEST");
             orderRepository.insert(order);
             long orderId = order.getOrderId();
@@ -67,5 +67,6 @@ public class DemoService {
 //        System.out.println(orderItemRepository.selectAll());
 //        orderItemRepository.dropTable();
 //        orderRepository.dropTable();
+        System.out.println("dd");
     }
 }
