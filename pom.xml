@@ -12,6 +12,7 @@
 		<module>app</module>
 		<module>portal</module>
 		<module>sso</module>
+		<module>common</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
