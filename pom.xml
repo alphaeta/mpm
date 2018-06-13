@@ -49,7 +49,7 @@
 				<version>${sharding-sphere.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>shardingsphere</groupId>
+				<groupId>io.shardingsphere</groupId>
 				<artifactId>sharding-jdbc-orchestration-spring-boot-starter</artifactId>
 				<version>${sharding-sphere.version}</version>
 			</dependency>

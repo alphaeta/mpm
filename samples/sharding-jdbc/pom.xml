@@ -18,6 +18,10 @@
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.shardingsphere</groupId>
+			<artifactId>sharding-jdbc-orchestration-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
