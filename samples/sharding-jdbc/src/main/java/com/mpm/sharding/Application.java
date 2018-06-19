@@ -1,38 +1,36 @@
 package com.mpm.sharding;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import com.mpm.sharding.cfg.Constants;
+import com.mpm.sharding.cfg.RouteConfig;
+import com.mpm.sharding.repository.ShardingOrderRepository;
 import com.mpm.sharding.service.DemoService;
+import com.mpm.sharding.service.ShardingService;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+	@Autowired
+	private DemoService demoService;
+	@Autowired
+	private RouteConfig config;
+	@Autowired
+	private ShardingService shardingService;
 	
 	
-	@Bean
-	@ConfigurationProperties(prefix = "company2dbmap")
-	public Map<String, String> com2dbMap() {
-		return new HashMap<String, String>();
-	}
 
 	public static void main(String[] args) {
-		try (ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args)) {
-			
-			applicationContext.getBean(DemoService.class).demo();
-		}
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Constants.COM_DB_MAP=com2dbMap();
+		Constants.COM_DB_MAP=config.getComroute();
 		System.out.println(Constants.COM_DB_MAP);
+		//demoService.demo();
+		shardingService.demo();
 	}
 }

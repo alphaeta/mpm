@@ -20,7 +20,8 @@ public class DatePreciseShardingAlgorithm implements PreciseShardingAlgorithm<Da
 		Date date = shardingValue.getValue();
 		Assert.notNull(date, "date is null");
 		String suffix = DateFormatUtils.format(date, "yyyyMM");
-		String table = availableTargetNames.iterator().next() + suffix;
+		String table = availableTargetNames.iterator().next() + "_" + suffix;
+		System.out.println("table:"+table);
 		return table;
 	}
 

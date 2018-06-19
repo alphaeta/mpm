@@ -18,6 +18,7 @@ public class CompanyPreciseShardingAlgorithm implements PreciseShardingAlgorithm
 		String companyKey = shardingValue.getValue();
 		String db = Constants.COM_DB_MAP.get(companyKey);
 		Assert.notNull(db, companyKey+"not found db");
+		System.out.println("db:"+db);
 		return db;
 	}
 
