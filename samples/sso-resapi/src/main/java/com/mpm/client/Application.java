@@ -64,7 +64,7 @@ public class Application {
 		}
 
 		private ApiInfo apiInfo() {
-			return new ApiInfoBuilder().title("sso-client APIs").description("sso-client APIs")
+			return new ApiInfoBuilder().title("sso-resapi APIs").description("sso-resapi APIs")
 					.termsOfServiceUrl("www.mpm.com").contact("mpm").version("1.0").build();
 		}
 
