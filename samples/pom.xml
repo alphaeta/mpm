@@ -13,6 +13,7 @@
 		<module>service-hi</module>
 		<module>client</module>
 		<module>sharding-jdbc</module>
+		<module>sso-resapi</module>
 	</modules>
 	<name>samples</name>
 </project>

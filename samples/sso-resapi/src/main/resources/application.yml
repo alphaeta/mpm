@@ -1,0 +1,21 @@
+server:
+  port: 6300
+#auth.server
+auth:
+  server: http://localhost:8000/sso
+  
+  
+security:
+  basic:
+    enabled:  false
+  oauth2:
+    client:
+      client-id:  sso-client
+      client-secret:  mpm
+      access-token-uri: ${auth.server}/oauth/token
+      user-authorization-uri: ${auth.server}/oauth/authorize
+      scope:  app
+    resource:
+      token-info-uri: ${auth.server}/oauth/check_token
+      resource.userInfoUri: ${auth.server}/user
+  
