@@ -14,6 +14,7 @@
 		<module>client</module>
 		<module>sharding-jdbc</module>
 		<module>sso-resapi</module>
+		<module>sso-client</module>
 	</modules>
 	<name>samples</name>
 </project>

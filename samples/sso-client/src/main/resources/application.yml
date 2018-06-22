@@ -1,5 +1,5 @@
 server:
-  port: 6300
+  port: 6400
 #auth.server
 auth:
   server: http://localhost:8000/sso
@@ -10,7 +10,7 @@ security:
     enabled:  false
   oauth2:
     client:
-      client-id:  sso-resapi
+      client-id:  sso-client
       client-secret:  mpm
       access-token-uri: ${auth.server}/oauth/token
       user-authorization-uri: ${auth.server}/oauth/authorize

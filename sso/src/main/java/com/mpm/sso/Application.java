@@ -30,28 +30,33 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
-@RestController
+@Controller
 public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-	
+
 	@RequestMapping(value = "/")
+	@ResponseBody
 	public Principal me(Principal principal) {
 		return principal;
+	}
+	
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
 	}
 
 	@Configuration
@@ -109,11 +114,12 @@ public class Application {
 		// }
 	}
 
-	@Configuration
-	@EnableResourceServer
-	protected static class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-
-	}
+	// @Configuration
+	// @EnableResourceServer
+	// protected static class ResourceServerConfig extends
+	// ResourceServerConfigurerAdapter {
+	//
+	// }
 
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -127,10 +133,15 @@ public class Application {
 		}
 
 		@Override
+		@Bean
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
+
+		@Override
 		protected void configure(final HttpSecurity http) throws Exception {
 			http.headers().frameOptions().disable().and().csrf().disable();
-			http.authorizeRequests().antMatchers("/login", "/assets/**", "/css/**", "/js/**").permitAll().anyRequest()
-					.authenticated();
+			http.authorizeRequests().anyRequest().authenticated();
 			http.formLogin().loginPage("/login").permitAll().and().logout().logoutUrl("/logout")
 					.addLogoutHandler(new LogoutHandler() {
 
