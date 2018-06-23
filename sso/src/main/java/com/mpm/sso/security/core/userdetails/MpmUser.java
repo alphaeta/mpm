@@ -7,6 +7,33 @@ import org.springframework.security.core.userdetails.User;
 
 public class MpmUser extends User {
 	private String namecn;
+	private String employeeId;
+	private String companyCode;
+	private String companyId;
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
 
 	public MpmUser(String username, String password, String namecn,
 			Collection<? extends GrantedAuthority> authorities) {
