@@ -40,6 +40,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mpm.sso.security.crypto.password.MpmPasswordEncoder;
+
 @SpringBootApplication
 @Controller
 public class Application {
@@ -53,7 +55,7 @@ public class Application {
 	public Principal me(Principal principal) {
 		return principal;
 	}
-	
+
 	@RequestMapping(value = "/login")
 	public String login() {
 		return "login";
@@ -98,7 +100,7 @@ public class Application {
 		public DefaultTokenServices tokenServices() {
 			DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 			defaultTokenServices.setTokenStore(tokenStore());
-			defaultTokenServices.setSupportRefreshToken(false);
+			// defaultTokenServices.setSupportRefreshToken(false);
 			defaultTokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
 			return defaultTokenServices;
 		}
@@ -129,7 +131,7 @@ public class Application {
 
 		@Autowired
 		public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(userDetailsService);
+			auth.userDetailsService(userDetailsService).passwordEncoder(new MpmPasswordEncoder());
 		}
 
 		@Override

@@ -5,6 +5,22 @@
 <title>OAuth2 SSO Demo</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.gradient.min.css" />
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$("button").click(
+						function() {
+							var username = $("input[ name='companycode' ]")
+									.val()
+									+ ":" + $("input[name='loginname']").val();
+							//alert(username);
+							$("input[ name='username']")
+									.attr("value", username);
+							//alert($("input[ name='username' ]").val())
+						});
+			});
+</script>
 </head>
 
 <body class="uk-height-1-1">
@@ -27,18 +43,18 @@
 				</div>
 				<div class="uk-form-row">
 					<input class="uk-width-1-1 uk-form-large" type="text"
-						placeholder="Username" name="username" value="user" />
+						placeholder="Username" name="loginname" value="5007" />
 				</div>
 				<div class="uk-form-row">
 					<input class="uk-width-1-1 uk-form-large" type="password"
-						placeholder="Password" name="password" value="password" />
+						placeholder="Password" name="password" value="123456" />
 				</div>
 				<div class="uk-form-row">
+					<input type="hidden" name="username"/>
 					<button
 						class="uk-width-1-1 uk-button uk-button-primary uk-button-large">Login</button>
 				</div>
 			</form>
-
 		</div>
 	</div>
 </body>

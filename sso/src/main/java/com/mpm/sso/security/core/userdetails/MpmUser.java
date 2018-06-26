@@ -6,10 +6,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 public class MpmUser extends User {
+
+	private String loginName;
 	private String namecn;
 	private String employeeId;
 	private String companyCode;
 	private String companyId;
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 
 	public String getEmployeeId() {
 		return employeeId;
