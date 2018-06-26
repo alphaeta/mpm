@@ -32,18 +32,22 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mpm.sso.security.crypto.password.MpmPasswordEncoder;
+import com.mpm.sso.security.oauth2.provider.code.RedisAuthenticationCodeServices;
 
 @SpringBootApplication
 @Controller
+@EnableRedisHttpSession
 public class Application {
 
 	public static void main(String[] args) {
@@ -79,8 +83,14 @@ public class Application {
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-			endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore());
-			// .approvalStore(approvalStore()).authorizationCodeServices(authorizationCodeServices());
+			endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
+					// .approvalStore(approvalStore()).
+					.authorizationCodeServices(authorizationCodeServices());
+		}
+
+		@Bean
+		public AuthorizationCodeServices authorizationCodeServices() {
+			return new RedisAuthenticationCodeServices(connectionFactory);
 		}
 
 		@Override
@@ -109,11 +119,7 @@ public class Application {
 		public TokenStore tokenStore() {
 			return new RedisTokenStore(connectionFactory);
 		}
-		// @Bean
-		// public AuthorizationCodeServices authorizationCodeServices() {
-		// // TODO Auto-generated method stub
-		// return null;
-		// }
+
 	}
 
 	// @Configuration
