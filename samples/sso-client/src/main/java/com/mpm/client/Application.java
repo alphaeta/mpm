@@ -1,5 +1,7 @@
 package com.mpm.client;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+
 import java.security.Principal;
 
 import javax.servlet.http.Cookie;
@@ -21,28 +23,42 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 
 @SpringBootApplication
 @RestController
 public class Application {
 	@RequestMapping(value = "/")
-	public Principal me(Principal principal) {
-		return principal;
+	public String me(Principal principal) {
+		if(principal instanceof OAuth2Authentication) {
+			OAuth2Authentication oauth = (OAuth2Authentication)principal;
+			String token = "";
+			if(oauth.getDetails() instanceof OAuth2AuthenticationDetails) {
+				OAuth2AuthenticationDetails detail = (OAuth2AuthenticationDetails)oauth.getDetails();
+				token = detail.getTokenValue();
+			}
+			return "hello,token:"+token+",username:"+oauth.getPrincipal();
+		}
+		return JSON.toJSONString(principal);
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-	
+
 	@Bean
 	protected OAuth2RestTemplate OAuth2RestTemplate(OAuth2ProtectedResourceDetails resource,
 			OAuth2ClientContext context) {
 		return new OAuth2RestTemplate(resource, context);
 	}
-	
+
 	@Configuration
 	@EnableOAuth2Sso
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
