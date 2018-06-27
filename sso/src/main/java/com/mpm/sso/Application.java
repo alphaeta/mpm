@@ -1,6 +1,5 @@
 package com.mpm.sso;
 
-import java.security.Principal;
 import java.util.Enumeration;
 import java.util.concurrent.TimeUnit;
 
@@ -30,17 +29,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mpm.sso.security.crypto.password.MpmPasswordEncoder;
 import com.mpm.sso.security.oauth2.provider.code.RedisAuthenticationCodeServices;
@@ -52,12 +54,6 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-	}
-
-	@RequestMapping(value = "/")
-	@ResponseBody
-	public Principal me(Principal principal) {
-		return principal;
 	}
 
 	@RequestMapping(value = "/login")
@@ -110,7 +106,7 @@ public class Application {
 		public DefaultTokenServices tokenServices() {
 			DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 			defaultTokenServices.setTokenStore(tokenStore());
-			// defaultTokenServices.setSupportRefreshToken(false);
+			defaultTokenServices.setSupportRefreshToken(true);
 			defaultTokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
 			return defaultTokenServices;
 		}
@@ -122,18 +118,33 @@ public class Application {
 
 	}
 
-	// @Configuration
-	// @EnableResourceServer
-	// protected static class ResourceServerConfig extends
-	// ResourceServerConfigurerAdapter {
-	//
-	// }
+	@Configuration
+	@EnableResourceServer
+	protected static class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+		@Autowired
+		private ResourceServerTokenServices tokenServices;
+		public static final String RESOURCE_ID = "api";
+
+		@Override
+		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+			resources.resourceId(RESOURCE_ID).tokenServices(tokenServices);
+		}
+
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			http.requestMatchers().antMatchers("/api/**").and().authorizeRequests().anyRequest().authenticated();
+		}
+	}
 
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		@Autowired
 		private UserDetailsService userDetailsService;
+
+		private static final String[] AUTH_LIST = {
+				// -- swagger ui
+				"**/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**" };
 
 		@Autowired
 		public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
@@ -149,7 +160,7 @@ public class Application {
 		@Override
 		protected void configure(final HttpSecurity http) throws Exception {
 			http.headers().frameOptions().disable().and().csrf().disable();
-			http.authorizeRequests().anyRequest().authenticated();
+			http.authorizeRequests().antMatchers(AUTH_LIST).permitAll().anyRequest().authenticated();
 			http.formLogin().loginPage("/login").permitAll().and().logout().logoutUrl("/logout")
 					.addLogoutHandler(new LogoutHandler() {
 
