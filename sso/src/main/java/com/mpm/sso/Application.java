@@ -1,5 +1,6 @@
 package com.mpm.sso;
 
+import java.security.Principal;
 import java.util.Enumeration;
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +44,9 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.mpm.sso.security.crypto.password.MpmPasswordEncoder;
 import com.mpm.sso.security.oauth2.provider.code.RedisAuthenticationCodeServices;
 
@@ -54,6 +57,12 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+
+	@RequestMapping(value = "/")
+	@ResponseBody
+	public String index(Principal principal) {
+		return JSON.toJSONString(principal);
 	}
 
 	@RequestMapping(value = "/login")
@@ -79,7 +88,7 @@ public class Application {
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-			endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
+			endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore()).reuseRefreshTokens(true)
 					// .approvalStore(approvalStore()).
 					.authorizationCodeServices(authorizationCodeServices());
 		}
@@ -107,6 +116,7 @@ public class Application {
 			DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 			defaultTokenServices.setTokenStore(tokenStore());
 			defaultTokenServices.setSupportRefreshToken(true);
+			defaultTokenServices.setReuseRefreshToken(true);
 			defaultTokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
 			return defaultTokenServices;
 		}
