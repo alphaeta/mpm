@@ -9,16 +9,20 @@ import io.swagger.annotations.ApiModelProperty;
  *
  */
 public abstract class AbstractWorkSchedule {
+	public static int FIXED_TIME_WORK_SCHEDULE = 0;
+	public static int FLEXIBLE_TIME_WORK_SCHEDULE = 1;
+	public static int ADVANCED_WORK_SCHEDULE = 2;
+
 	@ApiModelProperty(value = "排班类型")
-	private String type;
+	private int type;
 	@ApiModelProperty(value = "有效时间区间")
 	private TimeSection timeSection;
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

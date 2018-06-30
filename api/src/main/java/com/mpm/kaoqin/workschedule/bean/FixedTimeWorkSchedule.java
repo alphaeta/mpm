@@ -36,6 +36,6 @@ public class FixedTimeWorkSchedule extends FlexibleTimeWorkSchedule {
 
 	public FixedTimeWorkSchedule() {
 		super();
-		setType(this.getClass().getCanonicalName());
+		setType(FIXED_TIME_WORK_SCHEDULE);
 	}
 }

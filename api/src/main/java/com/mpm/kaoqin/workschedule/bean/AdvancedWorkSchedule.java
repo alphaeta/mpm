@@ -26,7 +26,7 @@ public class AdvancedWorkSchedule extends AbstractWorkSchedule {
 
 	public AdvancedWorkSchedule() {
 		super();
-		setType(this.getClass().getCanonicalName());
+		setType(ADVANCED_WORK_SCHEDULE);
 	}
 
 }

@@ -28,6 +28,6 @@ public class FlexibleTimeWorkSchedule extends AbstractFixedLocationWorkSchedule 
 
 	public FlexibleTimeWorkSchedule() {
 		super();
-		setType(this.getClass().getCanonicalName());
+		setType(FLEXIBLE_TIME_WORK_SCHEDULE);
 	}
 }
