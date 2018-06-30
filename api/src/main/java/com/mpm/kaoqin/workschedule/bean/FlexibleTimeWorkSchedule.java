@@ -2,6 +2,7 @@ package com.mpm.kaoqin.workschedule.bean;
 
 import java.util.Calendar;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Administrator
  *
  */
+@ApiModel(value="自由排班")
 public class FlexibleTimeWorkSchedule extends AbstractFixedLocationWorkSchedule {
 	/**
 	 * @see Calendar

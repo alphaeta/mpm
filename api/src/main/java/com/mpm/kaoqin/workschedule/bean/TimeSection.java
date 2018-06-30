@@ -2,8 +2,9 @@ package com.mpm.kaoqin.workschedule.bean;
 
 import java.util.Date;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+@ApiModel(value="时间段")
 public class TimeSection {
 	@ApiModelProperty(value = "开始时间")
 	private Date start;

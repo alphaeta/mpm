@@ -7,8 +7,10 @@ package com.mpm.kaoqin.workschedule.bean;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value = "固定排班")
 public class FixedTimeWorkSchedule extends FlexibleTimeWorkSchedule {
 	@ApiModelProperty(value = "工作时间段", required = true)
 	private List<TimeSection> workTimeSections;
