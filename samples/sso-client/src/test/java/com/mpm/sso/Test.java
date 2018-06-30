@@ -24,7 +24,7 @@ public class Test {
 		String basic = encodeBasicAuthorizationHeader(clientId, clientSecret);
 
 		CloseableHttpClient httpclient = HttpClients.custom().build();
-		HttpUriRequest post = RequestBuilder.post().setUri(new URI("http://localhost:8000/sso/oauth/token"))
+		HttpUriRequest post = RequestBuilder.post().setUri(new URI("http://183.95.85.81:7110/oauth/token"))
 				.addParameter("username", username).addParameter("password", password)
 				.addParameter("grant_type", "password").addHeader(AUTHORIZATION_HEADER, basic).build();
 
